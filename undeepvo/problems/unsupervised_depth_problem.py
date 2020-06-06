@@ -23,7 +23,7 @@ class UnsupervisedDepthProblem(Problem):
         self._model.train()
 
         # Forward
-        loss, spatial_photometric_loss, disparity_loss, depth_loss, pose_loss, temporal_loss = self.evaluate_batch(
+        loss, spatial_photometric_loss, disparity_loss, inverse_depth_smoothness_loss, pose_loss, temporal_loss = self.evaluate_batch(
             batch)
 
         # Backward
@@ -32,7 +32,7 @@ class UnsupervisedDepthProblem(Problem):
         end_time = time.time()
         return {"loss": loss.item(), "time": end_time - start_time,
                 "spat_photo_loss": spatial_photometric_loss.item(), "disparity_loss": disparity_loss.item(),
-                "depth_loss": depth_loss.item(),
+                "inverse_depth_smoothness_loss": inverse_depth_smoothness_loss.item(),
                 "pose_loss": pose_loss.item(),
                 "temporal_loss": temporal_loss.item()}
 
